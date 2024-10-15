@@ -1,7 +1,7 @@
 ---
 title: "CSDE Workshop-Intro to R III: Data Visualization"
 author: "Jessica Godwin"
-date: "November 2, 2023"
+date: "October 15, 2024"
 output: 
  html_document:
    toc: true
@@ -9,7 +9,7 @@ output:
 
 ```{r setup, echo = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = '~/Dropbox/Workshops/IntrotoRIII/')
+knitr::opts_knit$set(root.dir = '~/Dropbox/Workshops/IntrotoRIII/Intro-to-R-III')
 ```
 
 # Getting started 
@@ -19,7 +19,7 @@ What is `R`? Open-source, free, statistical computing software.
 
 Go to the [R website](https://cran.r-project.org/), and download the appropriate software for your operating system.
 
-![](R1.png)
+![](Figures/R1.png)
 
 ## Download RStudio
 
@@ -27,7 +27,7 @@ What is Rstudio? A nice GUI (graphical user interface) for writing code, analyzi
 
 Go to the [RStudio website](https://rstudio.com/products/rstudio/download/#download) and download the appropriate software for your operating system.
 
-![](Rstudio.png)
+![](Figures/Rstudio.png)
 
 ## Rstudio Layout
 
@@ -38,7 +38,7 @@ Rstudio has four main panels that allow you to organize your code and have a bet
   * **Environment panel:** view existing objects
   * **Files/Plots/Help:** navigate files and folders, view plots, read and access help documentation for packages and functions
 
-![](RstudioPanel.png)
+![](Figures/RstudioPanel.png)
 
 # RMarkdown
 
@@ -46,11 +46,11 @@ Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word docu
 
 Go to File $\rightarrow$ New File $\rightarrow$ RMarkdown. Select `Knit to HTML`
 
-![](KnitToHtml.png)
+![](Figures/KnitToHtml.png)
 
 It will open up a new template .Rmd file for you to begin editing that will look like this:\
 
-![](NewRmd.png)
+![](Figures/NewRmd.png)
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded `R` code chunks within the document. You can embed an `R` code chunk like this:
 
@@ -302,27 +302,27 @@ Rstudio shows you what your current working directory is by looking at the file 
 
 **Note:** `~` refers to your home directory.
 
-![](wd_console.png)
+![](Figures/wd_console.png)
 
 You can also find out what's in your working directory OR navigate to and specify the folder you would like to be your working directory in the Files/Plots/Packages/Help/Viewer/Presentation pane.
 
-![](setwd_files.png)
+![](Figures/setwd_files.png)
 
 You can set your working directory manually in the Console or in a `.R` script with the function `setwd()`. The function `getwd()` will show you the current working directory.
 
-```{r, eval = F}
+```{r, eval = FALSE}
 getwd()
 setwd("~/Dropbox/Workshops/IntrotoRIII/")
 ```
 
 However, the `setwd()` function is insufficient for `.Rmd` files. To set the working directory in your `.Rmd` document, you will need to include the following line of code:
 
-```{r, eval = F}
+```{r, eval = FALSE}
 knitr::opts_knit$set(root.dir = "~/Dropbox/Workshops/IntrotoRIII/")
 ```
 
 ```{r pdf}
-pdf("WeightvsHeight.pdf",
+pdf("Figures/WeightvsHeight.pdf",
     height = 4, width = 4)
 plot(penguins$flipper_length_mm,
      penguins$body_mass_g,
@@ -409,7 +409,7 @@ plot(penguins$flipper_length_mm[penguins$species == "Gentoo"],
 titles <- c("Adelie", "Chinstrap", "Gentoo")
 colors <- c("navyblue", "deeppink", "deepskyblue")
 
-pdf('MassvsFlipper_species.pdf', height = 4, width = 4)
+pdf("Figures/MassvsFlipper_species.pdf", height = 4, width = 4)
 for(i in 1:3){
   par(mfrow = c(1,1))
   plot(penguins$flipper_length_mm[penguins$species == titles[i]],
@@ -448,7 +448,9 @@ We can also observe how species might impact the relationship between body mass 
 ggplot(penguins, aes(x=body_mass_g, y=flipper_length_mm, color=species)) + 
     geom_point(size=6) +
     theme_minimal() +
-  scale_color_manual(values = c("purple4", "darkgoldenrod", "black")) +
+  scale_color_manual(values = c("purple4", "darkgoldenrod", "black"),
+                     ## Change legend title
+                     name = "Species") +
   xlab("Body mass (in g)") + 
   ylab("Flipper length (in mm)")
 ```
@@ -493,13 +495,12 @@ peng_plot <- penguins %>%
   xlab("Body mass (in g)") + 
   ylab("Flipper length (in mm)")
 
-ggsave(peng_plot, filename = "MassvsFlipperLength_ggplot.pdf")
+ggsave(peng_plot, filename = "Figures/MassvsFlipperLength_ggplot.pdf")
 ```
 
-# Practice 2: Data manipulation \& Plotting
+# Practice: Data manipulation \& Plotting
 
-  1. What is the mean bill height and depth in this dataset?
-  2. If 50mm is long, how many long-billed penguins are in the total dataset?
-  3. Create a new variable in the dataset to represent the ratio of bill length to depth.
-  4. Plot your new variable in a boxplot and change the color of the inside of the boxplot. HINT: see `?boxplot`.
+  1. Create a new variable in the dataset to represent the ratio of bill length to depth.
+  2. Plot your new variable in a boxplot and change the color of the inside of the boxplot. HINT: see `?boxplot` or `?geom_boxplot`.
+  3. Write a loop that makes 3 3-panel plots saved to 3 individual files. Each plot/file will represent an island and each panel of each plot will plot the bill length against bill depth for a species. Within each panel, points will be colored by sex. Make sure your legends, titles, and axis labels are properly capitalized and neat.
 

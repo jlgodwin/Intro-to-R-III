@@ -1,7 +1,7 @@
 ---
 title: "CSDE Workshop-Intro to R III: Data Visualization"
 author: "Jessica Godwin"
-date: "October 15, 2024"
+date: "November 13, 2025"
 output: 
  html_document:
    toc: true
@@ -125,8 +125,10 @@ y = x.
 Data visualization is a powerful tool for understanding your data and teasing out relationships.  This lab will illustrate how to visualize the distribution of variables as well as associations between variables using base `R` and the `tidyverse` plotting package.
 
 For this lab, we will use two important packages:
-- `dplyr` to manage and manipulate our data
-- `ggplot2` to actually produce the visualizations
+
+  *  `dplyr` to manage and manipulate our data
+  *  `ggplot2` to actually produce the visualizations
+  
 
 To see all of the cool data visualization that you can do in `R`, visit the `R` Graph Gallery:
 https://www.r-graph-gallery.com/
@@ -168,7 +170,8 @@ hist(penguins$flipper_length_mm,
      breaks = 45)                          #alter the number of bins
 ```
 
-**Question**
+**Question:**
+
 What do you notice happened when we changed the bin width in the second histogram?  How might this be important to us as researchers?
 
 ### Histograms in `ggplot2`
@@ -197,7 +200,7 @@ ggplot(penguins, aes(x = flipper_length_mm)) +
 
 ### Bar graphs in base `R`
 
-Sometimes we're interested in visualizing a **categorical** variable  In the case of the `penguins` dataset, 
+Sometimes we're interested in visualizing a **categorical** variable. In the case of the `penguins` dataset, 
 
 We'll first use base `R` and then `ggplot2` to create the bar plots. In base `R`, you must first convert your data into a table as we have done above.  
 
@@ -234,7 +237,9 @@ ggplot(penguins, aes(x = island)) +
 
 ### Grouped bar plots in `ggplot2`
 
-What if we want to observe the relationship between two categorical variables?  In this case, we will examine the number of penguins of each species originating from each island. We can do so using a **grouped bar plot**. This is particularly straightforward to implement using `ggplot2`, but we will need to use `dplyr` to construct a summary tally of penguins by species and island and use that to make the graph.
+What if we want to observe the relationship between two categorical variables?  
+
+In this case, we will examine the number of penguins of each species originating from each island. We can do so using a **grouped bar plot**. This is particularly straightforward to implement using `ggplot2`, but we will need to use `dplyr` to construct a summary tally of penguins by species and island and use that to make the graph.
 
 ```{r}
 #Make a quick summary table of penguins
@@ -457,8 +462,6 @@ ggplot(penguins, aes(x=body_mass_g, y=flipper_length_mm, color=species)) +
 
 This plot gives us a new perspective on the data: we see that the relationship between body mass and flipper length is quite different for the Gentoo species, as compared with the Adelie and Chinstrap species.  
 
-
-
 ### `facet_wrap`
 
 ```{r, warning = F, message = F}
@@ -472,7 +475,9 @@ penguins %>%
   ylab("Flipper length (in mm)")
 ```
 
-**Question** What do you think the code below does differently than the previous example?
+**Question:**
+
+What do you think the code below does differently than the previous example?
 ```{r, eval = FALSE, warning = F, message = F}
 penguins %>% 
   ggplot(aes(x=body_mass_g, y=flipper_length_mm)) + 
@@ -498,9 +503,10 @@ peng_plot <- penguins %>%
 ggsave(peng_plot, filename = "Figures/MassvsFlipperLength_ggplot.pdf")
 ```
 
-# Practice: Data manipulation \& Plotting
+# Practice: Data visualization
 
-  1. Create a new variable in the dataset to represent the ratio of bill length to depth.
-  2. Plot your new variable in a boxplot and change the color of the inside of the boxplot. HINT: see `?boxplot` or `?geom_boxplot`.
+  1. Create a new variable in the dataset to represent the ratio of bill length to depth. Plot your new variable in a boxplot and change the color of the inside of the boxplot. HINT: see `?boxplot` or `?geom_boxplot`.
+  2. Create scatter plots in both base `R` and `ggplot2` of flipper length against bill length that uses symbols to indicate island of observation and color to indicate species. 
   3. Write a loop that makes 3 3-panel plots saved to 3 individual files. Each plot/file will represent an island and each panel of each plot will plot the bill length against bill depth for a species. Within each panel, points will be colored by sex. Make sure your legends, titles, and axis labels are properly capitalized and neat.
+  4. Use `group_by()` + `summarize()` or `aggregate()` to get the number of observed penguins by island, species, and year. Use `geom_bar()` and `facet_wrap()` to create a 3-panel plot (one for each island), that displays the penguin observation count by year, with color indicating species.
 

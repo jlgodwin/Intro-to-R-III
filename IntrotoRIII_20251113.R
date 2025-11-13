@@ -1,9 +1,9 @@
-## ----setup, echo = FALSE-----------------------------------------------------------------------
+## ----setup, echo = FALSE------------------------------------------------------------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(root.dir = '~/Dropbox/Workshops/IntrotoRIII/Intro-to-R-III')
 
 
-## ----knit_ex, eval = FALSE---------------------------------------------------------------------
+## ----knit_ex, eval = FALSE----------------------------------------------------------------------------------------------------
 ## data(cars)
 ## summary(cars)
 
@@ -12,28 +12,28 @@ knitr::opts_knit$set(root.dir = '~/Dropbox/Workshops/IntrotoRIII/Intro-to-R-III'
 plot(pressure)
 
 
-## ----eval = F----------------------------------------------------------------------------------
+## ----eval = F-----------------------------------------------------------------------------------------------------------------
 ## install.packages('knitr')
 ## library(knitr)
 ## purl('IntroToRIII_20231102.Rmd')
 
 
-## ----warning = F, message = F------------------------------------------------------------------
+## ----warning = F, message = F-------------------------------------------------------------------------------------------------
 #install.packages("ggplot2")
 #install.packages('palmerpenguins')
 library(ggplot2)
 library(palmerpenguins)
 
 
-## ----iris--------------------------------------------------------------------------------------
+## ----iris---------------------------------------------------------------------------------------------------------------------
 summary(penguins)
 
 
-## ----echo=FALSE--------------------------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------------------------------------------------------
 hist(penguins$flipper_length_mm)
 
 
-## ----iris sepal, echo=FALSE, tidy =T-----------------------------------------------------------
+## ----iris sepal, echo=FALSE, tidy =T------------------------------------------------------------------------------------------
 hist(penguins$flipper_length_mm,
      main = "Histogram of Flipper Length (in mm)",   #main title of the graph
      xlab = "Flipper Length",                #x-axis label (can also use ylab for y-axis label)
@@ -41,12 +41,12 @@ hist(penguins$flipper_length_mm,
      breaks = 45)                          #alter the number of bins
 
 
-## ----warning = F, message = F, error = F-------------------------------------------------------
+## ----warning = F, message = F, error = F--------------------------------------------------------------------------------------
 ggplot(penguins, aes(x = flipper_length_mm)) +
   geom_histogram()
 
 
-## ----------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------------------------------------
 ggplot(penguins, aes(x = flipper_length_mm)) +
   geom_histogram(fill = "darkgoldenrod", #alter the fill color of the bars
                  color = "white") +      #alter the outline color of the bars
@@ -57,7 +57,7 @@ ggplot(penguins, aes(x = flipper_length_mm)) +
   
 
 
-## ----------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------------------------------------
 #Summarize # of penguins from each 
 #island in a table
 counts <- table(penguins$island)
@@ -66,14 +66,14 @@ counts <- table(penguins$island)
 barplot(counts) 
 
 
-## ----------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------------------------------------
 barplot(counts, 
         main = "Island of Origin",
         col = "mediumpurple2",
         ylab = "Frequency")
 
 
-## ----------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------------------------------------
 ggplot(penguins, aes(x = island)) +
   geom_bar(fill = "darkblue") +
   xlab("Island of Origin") +
@@ -81,7 +81,7 @@ ggplot(penguins, aes(x = island)) +
   theme_bw()    #note the difference in background with this theme
 
 
-## ----------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------------------------------------
 #Make a quick summary table of penguins
 #by island:
 library(dplyr)
@@ -98,7 +98,7 @@ ggplot(species_by_island, aes(x = species, y = n, fill = island)) +
   theme_bw()    
 
 
-## ----------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------------------------------------
 #summarize average flipper length by island
 flippers_by_island <- penguins %>%
   group_by(island) %>%
@@ -114,7 +114,7 @@ ggplot(flippers_by_island, aes(x = island, y = mean_flipper_length, fill = islan
   scale_fill_manual(values = c("purple4", "darkgoldenrod", "black"))
 
 
-## ----------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------------------------------------
 plot(penguins$body_mass_g, penguins$flipper_length_mm,
      xlab = "Body mass (in g)",
      ylab = "Flipper Length (in mm)",
@@ -122,7 +122,7 @@ plot(penguins$body_mass_g, penguins$flipper_length_mm,
      pch = 19)  #specifies the type of dot
 
 
-## ----------------------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------------------------------------------------------
 plot(penguins$flipper_length_mm,
      penguins$body_mass_g,
      xlab = "Flipper length (mm)",
@@ -131,16 +131,16 @@ plot(penguins$flipper_length_mm,
      pch = 2, col = 'red')
 
 
-## ----eval = FALSE------------------------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------------------------------------------------------
 ## getwd()
 ## setwd("~/Dropbox/Workshops/IntrotoRIII/")
 
 
-## ----eval = FALSE------------------------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------------------------------------------------------
 ## knitr::opts_knit$set(root.dir = "~/Dropbox/Workshops/IntrotoRIII/")
 
 
-## ----pdf---------------------------------------------------------------------------------------
+## ----pdf----------------------------------------------------------------------------------------------------------------------
 pdf("Figures/WeightvsHeight.pdf",
     height = 4, width = 4)
 plot(penguins$flipper_length_mm,
@@ -152,7 +152,7 @@ plot(penguins$flipper_length_mm,
 dev.off()
 
 
-## ----plot_lims---------------------------------------------------------------------------------
+## ----plot_lims----------------------------------------------------------------------------------------------------------------
 max(penguins$flipper_length_mm)
 max(penguins$flipper_length_mm, na.rm = TRUE)
 
@@ -190,7 +190,7 @@ legend('topleft', pch = c(2,19,19),
                   "Gentoo"), bty = 'n')
 
 
-## ----par_mfrow---------------------------------------------------------------------------------
+## ----par_mfrow----------------------------------------------------------------------------------------------------------------
 par(mfrow = c(1,3))
 plot(penguins$flipper_length_mm[penguins$species == "Adelie"],
      penguins$body_mass_g[penguins$species == "Adelie"],
@@ -218,7 +218,7 @@ plot(penguins$flipper_length_mm[penguins$species == "Gentoo"],
      pch = 19, col = 'deepskyblue')
 
 
-## ----multi_pdf---------------------------------------------------------------------------------
+## ----multi_pdf----------------------------------------------------------------------------------------------------------------
 titles <- c("Adelie", "Chinstrap", "Gentoo")
 colors <- c("navyblue", "deeppink", "deepskyblue")
 
@@ -237,7 +237,7 @@ for(i in 1:3){
 dev.off()
 
 
-## ----ggplot_point, warning = F, message = F----------------------------------------------------
+## ----ggplot_point, warning = F, message = F-----------------------------------------------------------------------------------
 ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm)) +
   geom_point() +
   xlab("Body Mass (in g)") +
@@ -248,7 +248,7 @@ ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm)) +
 #se = whether or not to include standard error estimates
 
 
-## ----warning = F, message = F------------------------------------------------------------------
+## ----warning = F, message = F-------------------------------------------------------------------------------------------------
 ggplot(penguins, aes(x=body_mass_g, y=flipper_length_mm, color=species)) + 
     geom_point(size=6) +
     theme_minimal() +
@@ -259,7 +259,7 @@ ggplot(penguins, aes(x=body_mass_g, y=flipper_length_mm, color=species)) +
   ylab("Flipper length (in mm)")
 
 
-## ----warning = F, message = F------------------------------------------------------------------
+## ----warning = F, message = F-------------------------------------------------------------------------------------------------
 penguins %>% 
   ggplot(aes(x=body_mass_g, y=flipper_length_mm, color = species)) + 
   geom_point(size=2) +
@@ -270,7 +270,7 @@ penguins %>%
   ylab("Flipper length (in mm)")
 
 
-## ----eval = FALSE, warning = F, message = F----------------------------------------------------
+## ----eval = FALSE, warning = F, message = F-----------------------------------------------------------------------------------
 ## penguins %>%
 ##   ggplot(aes(x=body_mass_g, y=flipper_length_mm)) +
 ##   geom_point(size=2) +
@@ -280,7 +280,7 @@ penguins %>%
 ##   ylab("Flipper length (in mm)")
 
 
-## ----ggsave, warning = F, message = F----------------------------------------------------------
+## ----ggsave, warning = F, message = F-----------------------------------------------------------------------------------------
 peng_plot <- penguins %>% 
   ggplot(aes(x=body_mass_g, y=flipper_length_mm, color = species)) + 
   geom_point(size=2) +
